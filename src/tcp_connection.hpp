@@ -28,9 +28,10 @@ namespace vicinibus
 
     private:
         /// Handle completion of a read operation. \todo -> request_handler
-        void handle_read(const boost::asio::error& e, std::size_t bytes_transferred);
+        void handle_read (const boost::system::error_code& e,
+                          std::size_t bytes_transferred);
         /// Handle completion of a write operation.
-        void handle_write(const boost::asio::error& e) {}
+        void handle_write (const boost::system::error_code& e) {}
 
         socket_type _socket;
 

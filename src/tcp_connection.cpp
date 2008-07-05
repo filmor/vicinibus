@@ -16,7 +16,7 @@ namespace vicinibus
                                 );
     }
 
-    void tcp_connection::handle_read (boost::asio::error const& e, std::size_t bytes)
+    void tcp_connection::handle_read (boost::system::error_code const& e, std::size_t bytes)
     {
         if (!e)
         {

@@ -12,7 +12,8 @@ namespace vicinibus
     public:
         typedef boost::asio::ip::udp::socket socket_type;
 
-        udp_listener (boost::asio::io_service& io, boost::asio::ip::udp::endpoint const& ep)
+        udp_listener (boost::asio::io_service& io,
+                      boost::asio::ip::udp::endpoint const& ep)
             : _socket (io, ep)
         {
             start_receive ();
@@ -21,8 +22,8 @@ namespace vicinibus
     private:
         void start_receive ();
 
-        void handle_receive (boost::asio::error const&, std::size_t);
-        void handle_send (boost::asio::error const&, std::size_t) {}
+        void handle_receive (boost::system::error_code const&, std::size_t);
+        void handle_send (boost::system::error_code const&, std::size_t) {}
 
         request_handler _handler;
 

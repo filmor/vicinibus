@@ -1,24 +1,23 @@
 # -*- encoding:utf8 -*-
 
-import ConfigParser, glob
+import glob
+import re
+from os.path import join
 
-config = ConfigParser.ConfigParser()
-config.read('build.cfg')
+name = "vicinibus"
+sources = glob.glob('src/*.cpp')
+prefix = "/Users/bs/Gentoo/usr"
+libdir = [ '.', join(prefix, "lib") ]
+include = [ join(i, "include") for i in ["/usr", prefix] ]
+libs = "boost_system".split()
+cxxflags = "-Wall -g3 -fomit-frame-pointer -march=k8 -D_GLIBCXX_CONCEPT_CHECKS"
+ldflags = ""
 
-builds = {}
-for i in config.sections():
-    l = i.split(".")
-    id = l[0]
-    if len(l) >= 2 and l[1] != str(Platform()):
-        continue
-    builds[id] = { "libs" : config.get(i, "libs").split(",")
-                 , "flags" : config.get(i, "flags")
-                 , "sources" : glob.glob(config.get(i, "sources"))
-                 }
+env = Environment(CXXFLAGS=cxxflags, CPPPATH=include, LIBPATH=libdir, LIBS=libs, LINKFLAGS = ldflags)
 
-print builds["vicinibus"]
+programs = { "src/main.cpp" : "vicinibus" }
+objects = [ env.Object(i) for i in sources if not i in programs ]
 
-for i, j in builds.iteritems():
-    env = Environment (CXXFLAGS = j["flags"])
-    env.Program (i, j["sources"], LIBS=j["libs"])
-    print "Building " + i + "..."
+# env.Program(name, objects + ['src/main.cpp'])
+for i in programs:
+    env.Program(programs[i], [i] + objects)

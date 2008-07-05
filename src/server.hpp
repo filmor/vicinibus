@@ -17,7 +17,7 @@ namespace vicinibus
 
     private:
         /// Handle completion of an asynchronous accept operation.
-        void handle_accept (boost::asio::error const& e);
+        void handle_accept (boost::system::error_code const& e);
 
         /// The io_service used to perform asynchronous operations.
         boost::asio::io_service& _io_service;

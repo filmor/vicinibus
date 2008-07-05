@@ -16,7 +16,7 @@ namespace vicinibus
                                    );
     }
 
-    void udp_listener::handle_receive (boost::asio::error const& e, std::size_t bytes)
+    void udp_listener::handle_receive (boost::system::error_code const& e, std::size_t bytes)
     {
         _handler.generate_reply (bytes);
         _socket.async_send_to (boost::asio::buffer(_handler.reply ()), _remote_endpoint

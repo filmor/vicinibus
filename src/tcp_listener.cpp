@@ -5,7 +5,8 @@ namespace vicinibus
 {
     using boost::asio::ip::tcp;
 
-    tcp_listener::tcp_listener (boost::asio::io_service& io_service, tcp::endpoint const& ep)
+    tcp_listener::tcp_listener (boost::asio::io_service& io_service,
+                                tcp::endpoint const& ep)
         : _io_service (io_service)
         , _acceptor (io_service, ep)
         , _new_connection (new tcp_connection (io_service))
@@ -16,7 +17,7 @@ namespace vicinibus
                                );*/
     }
 
-    void tcp_listener::handle_accept(const boost::asio::error& e)
+    void tcp_listener::handle_accept (const boost::system::error_code& e)
     {
         if (!e)
         {

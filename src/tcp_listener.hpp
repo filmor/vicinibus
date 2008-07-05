@@ -14,7 +14,7 @@ namespace vicinibus
         tcp_listener (boost::asio::io_service&, boost::asio::ip::tcp::endpoint const&);
 
     private:
-        void handle_accept (boost::asio::error const&);
+        void handle_accept (boost::system::error_code const&);
 
         boost::asio::io_service& _io_service;
 
